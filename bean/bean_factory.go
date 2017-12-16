@@ -1,7 +1,7 @@
 package bean
 
 import (
-	"log"
+	"fmt"
 	"sync"
 )
 
@@ -17,7 +17,7 @@ type beanFactory struct {
 func (this *beanFactory) AddBean(beanName string, bean interface{}) {
 	this.mutex.Lock()
 	if this.Beans[beanName] != nil {
-		log.Printf("%s has exist", beanName)
+		panic(fmt.Errorf("%s has exist", beanName))
 		return
 	}
 
@@ -29,8 +29,7 @@ func (this *beanFactory) GetBean(beanName string) interface{} {
 	this.mutex.RLock()
 	bean := this.Beans[beanName]
 	if bean == nil {
-		log.Printf("not have bean[%s]", beanName)
-		return nil
+		panic(fmt.Errorf("%s not exist", beanName))
 	}
 	this.mutex.RUnlock()
 	return bean
