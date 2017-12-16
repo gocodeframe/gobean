@@ -1,9 +1,8 @@
 package main
 
-import (
-	"fmt"
-)
+import "gobean/example"
 
 func main() {
-	fmt.Printf("begin")
+	example.ExampleBeanFactory.GetBean("person1").(*example.Person).PhoneType()
+	example.ExampleBeanFactory.GetBean("person2").(*example.Person).PhoneType()
 }
